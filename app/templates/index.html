@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Главная - ПКФП{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- ЛЕВАЯ КОЛОНКА: приветствие -->
+    <div class="col-lg-8">
+        <h1 class="display-4 mb-4">Добро пожаловать на сайт ПКФП</h1>
+        <p class="lead">
+            Мы — ведущий производитель промышленного оборудования в России.
+            Наша компания работает на рынке более 20 лет.
+        </p>
+        <p>
+            На нашем сайте вы можете ознакомиться с каталогом продукции,
+            узнать последние новости компании, а также связаться с нами.
+        </p>
+        <a href="/products" class="btn btn-primary btn-lg">Перейти к продукции</a>
+    </div>
+    
+    <!-- ПРАВАЯ КОЛОНКА: последние новости -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">📰 Последние новости</h5>
+            </div>
+            <div class="card-body">
+                {% if news %}
+                    {% for item in news %}
+                        <div class="news-card">
+                            <h6>{{ item.title }}</h6>
+                            <small class="text-muted">{{ item.created_at.strftime('%d.%m.%Y') }}</small>
+                            <p class="mt-2">{{ item.content[:100] }}{% if item.content|length > 100 %}...{% endif %}</p>
+                            <hr>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">Новостей пока нет.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- БЛОК ПРЕИМУЩЕСТВ (3 колонки) -->
+<div class="row mt-5 text-center">
+    <div class="col-md-4">
+        <div class="feature-icon">🏭</div>
+        <h4>Собственное производство</h4>
+        <p>Полный цикл производства на современных станках</p>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-icon">📦</div>
+        <h4>Доставка по всей России</h4>
+        <p>Быстрая и надёжная доставка в любой регион</p>
+    </div>
+    <div class="col-md-4">
+        <div class="feature-icon">🔧</div>
+        <h4>Гарантия качества</h4>
+        <p>Все товары сертифицированы и имеют гарантию</p>
+    </div>
+</div>
+{% endblock %}

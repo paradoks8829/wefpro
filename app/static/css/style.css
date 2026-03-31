@@ -1,0 +1,27 @@
+/* Общие стили для сайта */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}
+
+/* Стили для карточек новостей на главной */
+.news-card {
+    transition: transform 0.2s;
+    margin-bottom: 20px;
+}
+
+.news-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Стили для иконок преимуществ */
+.feature-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+}
