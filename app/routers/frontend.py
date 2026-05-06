@@ -40,3 +40,33 @@ async def home(request: Request, db: Session = Depends(get_db)):
         "news": latest_news,             # список новостей
         "project_name": settings.PROJECT_NAME  # имя сайта из .env
     })
+    
+@router.get("/news")
+async def news(request: Request, db: Session = Depends(get_db)):
+    
+    all_news = db.query(models.News).filter(
+        models.News.is_published == True
+    )
+    
+    return templates.TemplateResponse("news.html", {
+        "request": request,
+        "news": all_news,
+        "project_name": settings.PROJECT_NAME
+    })
+    
+@router.get("/catalog")
+async def catalog(request: Request, db: Session = Depends(get_db)):
+    pass
+
+
+@router.get("/contacts")
+async def catalog(request: Request, db: Session = Depends(get_db)):
+    pass
+
+@router.get("/about")
+async def catalog(request: Request, db: Session = Depends(get_db)):
+    pass
+
+@router.get("/partners")
+async def catalog(request: Request, db: Session = Depends(get_db)):
+    pass

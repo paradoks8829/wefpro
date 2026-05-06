@@ -16,4 +16,12 @@ class News(Base):
     created_at = Column(DateTime, default=datetime.utcnow)  # дата создания (автоматически)
     is_published = Column(Boolean, default=True)        # опубликована? (по умолчанию да)
     
+class Products(Base):
+    __tablename__ = "products"
     
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    producer = Column(String)
+    image_url = Column(String)
+    pfd_url = Column(String)
+    description = Column(Text)
