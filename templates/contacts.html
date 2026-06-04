@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — ПРОМ ИНЖИНИРИНГ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-flex">
+            <div class="logo">
+                <span class="logo-main">ПРОМ</span>
+                <span class="logo-sub">ИНЖИНИРИНГ</span>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list" id="navList">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="news.html" class="nav-link">Новости</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="contacts.html" class="nav-link active">Контакты</a></li>
+                    <li><a href="about_company.html" class="nav-link">Компания</a></li>
+                </ul>
+                <button class="burger" id="burgerBtn" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contacts-page">
+        <div class="contacts-container">
+            <div class="contacts-card gradient-bg">
+                <p class="contact-label">Наш адрес:</p>
+                <p>614056, г.Пермь, ул. Соликамская 273</p>
+                <p class="contact-label">Наш телефон:</p>
+                <p>+7(342)263-17-60, +7(342)263-17-62</p>
+            </div>
+            <div class="contacts-map">
+                <iframe src="https://yandex.ru/map-widget/v1/?ll=56.346188%2C58.069829&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzI0OTA4MBJC0KDQvtGB0YHQuNGPLCDQn9C10YDQvNGMLCDQodC-0LvQuNC60LDQvNGB0LrQsNGPINGD0LvQuNGG0LAsIDI3M9CQIgoNgGJhQhWBR2hC&z=16.9" width="100%" height="100%" frameborder="0" allowfullscreen="true" style="border:0;"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-center">
+            <p>© 2025 ПРОМ ИНЖИНИРИНГ®. Все права защищены. Сделано в России.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

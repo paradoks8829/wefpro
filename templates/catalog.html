@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог — ПРОМ ИНЖИНИРИНГ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-flex">
+            <div class="logo">
+                <span class="logo-main">ПРОМ</span>
+                <span class="logo-sub">ИНЖИНИРИНГ</span>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list" id="navList">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="news.html" class="nav-link">Новости</a></li>
+                    <li><a href="catalog.html" class="nav-link active">Каталог</a></li>
+                    <li><a href="contacts.html" class="nav-link">Контакты</a></li>
+                    <li><a href="about_company.html" class="nav-link">Компания</a></li>
+                </ul>
+                <button class="burger" id="burgerBtn" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="catalog-page">
+        <div class="catalog-layout">
+            <aside class="catalog-sidebar">
+                <div class="category-card active" data-category="pumps">Mennekes</div>
+                <div class="category-card" data-category="valves">Hensel</div>
+                <div class="category-card" data-category="compressors">Электродвиг.</div>
+                <div class="category-card" data-category="heat">Электрохимзащ.</div>
+                <div class="category-card" data-category="filters">Кабели</div>
+                <div class="category-card" data-category="automation">Изоляция</div>
+            </aside>
+            <div class="catalog-products" id="productsContainer">
+                <!-- динамическая подгрузка -->
+                <div class="product-item">
+                    <div class="product-img placeholder-img"></div>
+                    <div class="product-info"><h4>Центробежный насос XH-150</h4><p>Производительность до 500 м³/ч, взрывозащищенное исполнение</p></div>
+                </div>
+                <div class="product-item">
+                    <div class="product-img placeholder-img"></div>
+                    <div class="product-info"><h4>Насос шестеренчатый НШ-100</h4><p>Для перекачки вязких нефтепродуктов</p></div>
+                </div>
+                <div class="product-item">
+                    <div class="product-img placeholder-img"></div>
+                    <div class="product-info"><h4>Погружной насос ЭЦН</h4><p>Для добычи пластовой жидкости</p></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-center">
+            <p>© 2025 ПРОМ ИНЖИНИРИНГ®. Все права защищены. Сделано в России.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

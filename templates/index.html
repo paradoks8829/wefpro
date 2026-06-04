@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ПРОМ ИНЖИНИРИНГ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container header-flex">
+            <div class="logo">
+                <span class="logo-main">ПРОМ</span>
+                <span class="logo-sub">ИНЖИНИРИНГ</span>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list" id="navList">
+                    <li><a href="index.html" class="nav-link">Главная</a></li>
+                    <li><a href="news.html" class="nav-link">Новости</a></li>
+                    <li><a href="catalog.html" class="nav-link">Каталог</a></li>
+                    <li><a href="contacts.html" class="nav-link">Контакты</a></li>
+                    <li><a href="about_company.html" class="nav-link">Компания</a></li>
+                </ul>
+                <button class="burger" id="burgerBtn" aria-label="Меню">
+                    <span></span><span></span><span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-inner">
+                <div class="hero-left">
+                    <h1 class="hero-title">Надежное оборудование для глобальных задач</h1>
+                    <p class="hero-subtitle">Добро пожаловать! Чтобы узнать о нашей компании побольше, вы можете посетить разделы О компании и Новости. О нашей продукции — в разделе Продукция.</p>
+                    <div class="hero-buttons">
+                        <a href="catalog.html" class="btn btn-primary">Каталог</a>
+                        <a href="contacts.html" class="btn btn-outline">Связаться</a>
+                    </div>
+                </div>
+                <div class="hero-right"></div>
+                <div class="vertical-divider"></div>
+            </div>
+        </section>
+
+        <section class="news-block">
+            <div class="container">
+                <div class="news-grid">
+                    <div class="news-card">
+                        <div class="news-card-content">
+                            <h3>Отраслевое совещание «Газпром»</h3>
+                            <p>Стратегическая сессия по модернизации инфраструктуры</p>
+                        </div>
+                        <div class="news-date">29.09.2014 - 03.10.2014</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-card-content">
+                            <h3>Новые стандарты эффективности</h3>
+                            <p>Внедрение передовых решений в промышленность</p>
+                        </div>
+                        <div class="news-date">15.11.2024</div>
+                    </div>
+                    <div class="news-card">
+                        <div class="news-card-content">
+                            <h3>Цифровая трансформация</h3>
+                            <p>Инновационные подходы к управлению проектами</p>
+                        </div>
+                        <div class="news-date">02.12.2024</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container footer-center">
+            <p>© 2025 ПРОМ ИНЖИНИРИНГ®. Все права защищены. Сделано в России.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
