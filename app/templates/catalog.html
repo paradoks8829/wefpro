@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Каталог — {{ project_name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Каталог продукции</h1>
+
+<div class="row">
+    {% if categories %}
+        <div class="col-md-3 mb-4">
+            <div class="list-group">
+                <span class="list-group-item list-group-item-action active">Категории</span>
+                {% for category in categories %}
+                    <span class="list-group-item">{{ category }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-9">
+    {% else %}
+        <div class="col-12">
+    {% endif %}
+
+    {% if products %}
+        <div class="row g-4">
+            {% for product in products %}
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        {% if product.image_url %}
+                            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            {% if product.producer %}
+                                <p class="text-muted mb-1">Производитель: {{ product.producer }}</p>
+                            {% endif %}
+                            {% if product.category %}
+                                <span class="badge bg-primary mb-2">{{ product.category }}</span>
+                            {% endif %}
+                            {% if product.description %}
+                                <p class="card-text">{{ product.description }}</p>
+                            {% endif %}
+                            {% if product.pdf_url %}
+                                <a href="{{ product.pdf_url }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    Скачать PDF
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">Товары пока не добавлены.</div>
+    {% endif %}
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Новости — {{ project_name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Новости</h1>
+
+{% if news %}
+    <div class="row g-4">
+        {% for item in news %}
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <h5 class="card-title">{{ item.title }}</h5>
+                            <span class="badge bg-secondary">{{ item.created_at.strftime('%d.%m.%Y') }}</span>
+                        </div>
+                        <p class="card-text mt-3">{{ item.content }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">Новостей пока нет. Загляните позже.</div>
+{% endif %}
+{% endblock %}

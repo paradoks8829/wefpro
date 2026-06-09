@@ -1,22 +1,38 @@
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from app.routers import frontend  # импортируем наш роутер
-from app.config import get_settings
+from contextlib import asynccontextmanager
 
-# Получаем настройки
+from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
+
+from app.config import get_settings
+from app.database import init_db
+from app.dependencies import WebAuthRedirect
+from app.routers import admin, admin_web, auth, frontend
+
 settings = get_settings()
 
-# СОЗДАЁМ ПРИЛОЖЕНИЕ
-app = FastAPI(title=settings.PROJECT_NAME)
 
-# ПОДКЛЮЧАЕМ СТАТИКУ (CSS, картинки)
-# Все файлы из папки static будут доступны по URL /static/...
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
+
+
+app = FastAPI(title=settings.PROJECT_NAME, lifespan=lifespan)
+
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# ПОДКЛЮЧАЕМ РОУТЕР (все маршруты из frontend.py)
 app.include_router(frontend.router)
+app.include_router(auth.router)
+app.include_router(admin.router)
+app.include_router(admin_web.router)
 
-# Для проверки, что сервер работает
+
+@app.exception_handler(WebAuthRedirect)
+async def web_auth_redirect_handler(request, exc: WebAuthRedirect):
+    return RedirectResponse(url=exc.url, status_code=303)
+
+
 @app.get("/health")
 async def health_check():
     return {"status": "ok"}

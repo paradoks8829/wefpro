@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Партнёры — {{ project_name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Партнёры</h1>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <div class="list-group">
+            <a href="/about" class="list-group-item list-group-item-action">О компании</a>
+            <a href="/partners" class="list-group-item list-group-item-action active">Партнёры</a>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row g-3">
+            {% for partner in partners %}
+                <div class="col-md-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body d-flex flex-column justify-content-center">
+                            <div class="bg-light rounded mb-3 py-4">🏢</div>
+                            <h6 class="mb-0">{{ partner }}</h6>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

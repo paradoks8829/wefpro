@@ -1,30 +1,42 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from collections.abc import AsyncGenerator
+
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
+
 from app.config import get_settings
 
-# 1. Получаем настройки (читаем DATABASE_URL из .env)
 settings = get_settings()
 
-# 2. Создаём "движок" — ядро для работы с БД
-#    connect_args нужно только для SQLite
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args={"check_same_thread": False} if "sqlite" in settings.DATABASE_URL else {}
+
+def _to_async_url(url: str) -> str:
+    if url.startswith("postgresql://"):
+        return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    if url.startswith("sqlite:///"):
+        return url.replace("sqlite:///", "sqlite+aiosqlite:///", 1)
+    return url
+
+
+engine = create_async_engine(
+    _to_async_url(settings.DATABASE_URL),
+    echo=False,
 )
 
-# 3. Создаём "фабрику сессий" — будет выдавать подключения к БД
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+AsyncSessionLocal = async_sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False,
+)
 
-# 4. Создаём базовый класс для моделей (таблиц)
-#    Все модели будут наследоваться от него
-Base = declarative_base()
 
-# 5. Функция для получения сессии БД (будет использоваться в роутерах)
-def get_db():
-    """Создаёт сессию БД и автоматически закрывает её после использования"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+class Base(DeclarativeBase):
+    pass
+
+
+async def get_db() -> AsyncGenerator[AsyncSession, None]:
+    async with AsyncSessionLocal() as session:
+        yield session
+
+
+async def init_db() -> None:
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)

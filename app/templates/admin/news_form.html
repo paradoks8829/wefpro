@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if news_item %}Редактирование{% else %}Новая новость{% endif %}{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">{% if news_item %}Редактирование новости{% else %}Новая новость{% endif %}</h1>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="post" action="{% if news_item %}/admin/news/{{ news_item.id }}/edit{% else %}/admin/news/new{% endif %}">
+            <div class="mb-3">
+                <label for="title" class="form-label">Заголовок</label>
+                <input type="text" class="form-control" id="title" name="title" required maxlength="200"
+                       value="{{ news_item.title if news_item else '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Текст</label>
+                <textarea class="form-control" id="content" name="content" rows="8" required>{{ news_item.content if news_item else '' }}</textarea>
+            </div>
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="is_published" name="is_published" value="true"
+                       {% if not news_item or news_item.is_published %}checked{% endif %}>
+                <label class="form-check-label" for="is_published">Опубликовать на сайте</label>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a href="/admin/news" class="btn btn-outline-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,72 +1,101 @@
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Depends, Request
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.orm import Session
-from app.database import get_db
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app import models
 from app.config import get_settings
+from app.database import get_db
 
-# Создаём роутер (группу маршрутов)
 router = APIRouter()
-
-# Настраиваем Jinja2 для работы с HTML-шаблонами
 templates = Jinja2Templates(directory="app/templates")
-
-# Получаем настройки (чтобы взять имя проекта)
 settings = get_settings()
 
+
+def _template_context(request: Request, **extra):
+    return {"request": request, "project_name": settings.PROJECT_NAME, **extra}
+
+
 @router.get("/")
-async def home(request: Request, db: Session = Depends(get_db)):
-    """
-    ГЛАВНАЯ СТРАНИЦА
-    
-    1. Получает из БД последние 3 новости
-    2. Передаёт их в шаблон index.html
-    3. Возвращает готовую HTML-страницу
-    """
-    
-    # ЗАПРОС К БАЗЕ ДАННЫХ:
-    # Берём из таблицы News только опубликованные, сортируем по дате (сначала новые),
-    # ограничиваем 3 записями
-    latest_news = db.query(models.News).filter(
-        models.News.is_published == True
-    ).order_by(
-        models.News.created_at.desc()
-    ).limit(3).all()
-    
-    # ОТДАЁМ HTML:
-    # Берём шаблон index.html, подставляем в него переменные
-    return templates.TemplateResponse("index.html", {
-        "request": request,              # обязательно для Jinja2
-        "news": latest_news,             # список новостей
-        "project_name": settings.PROJECT_NAME  # имя сайта из .env
-    })
-    
-@router.get("/news")
-async def news(request: Request, db: Session = Depends(get_db)):
-    
-    all_news = db.query(models.News).filter(
-        models.News.is_published == True
+async def home(request: Request, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.News)
+        .where(models.News.is_published.is_(True))
+        .order_by(models.News.created_at.desc())
+        .limit(3)
     )
-    
-    return templates.TemplateResponse("news.html", {
-        "request": request,
-        "news": all_news,
-        "project_name": settings.PROJECT_NAME
-    })
-    
+    latest_news = result.scalars().all()
+
+    return templates.TemplateResponse(
+        "index.html",
+        _template_context(request, news=latest_news, active_page="home"),
+    )
+
+
+@router.get("/news")
+async def news_page(request: Request, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.News)
+        .where(models.News.is_published.is_(True))
+        .order_by(models.News.created_at.desc())
+    )
+    all_news = result.scalars().all()
+
+    return templates.TemplateResponse(
+        "news.html",
+        _template_context(request, news=all_news, active_page="news"),
+    )
+
+
 @router.get("/catalog")
-async def catalog(request: Request, db: Session = Depends(get_db)):
-    pass
+async def catalog_page(request: Request, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.Product)
+        .where(models.Product.is_published.is_(True))
+        .order_by(models.Product.category, models.Product.name)
+    )
+    products = result.scalars().all()
+    categories = sorted({p.category for p in products if p.category})
+
+    return templates.TemplateResponse(
+        "catalog.html",
+        _template_context(request, products=products, categories=categories, active_page="catalog"),
+    )
+
+
+@router.get("/products")
+async def products_redirect():
+    return RedirectResponse(url="/catalog", status_code=301)
 
 
 @router.get("/contacts")
-async def catalog(request: Request, db: Session = Depends(get_db)):
-    pass
+async def contacts_page(request: Request):
+    return templates.TemplateResponse(
+        "contacts.html",
+        _template_context(request, active_page="contacts"),
+    )
+
 
 @router.get("/about")
-async def catalog(request: Request, db: Session = Depends(get_db)):
-    pass
+async def about_page(request: Request):
+    return templates.TemplateResponse(
+        "about.html",
+        _template_context(request, active_page="about"),
+    )
+
 
 @router.get("/partners")
-async def catalog(request: Request, db: Session = Depends(get_db)):
-    pass
+async def partners_page(request: Request):
+    partners = [
+        "ТЕХНОПРОМ",
+        "ГазКомплект",
+        "ЭКЗ Сервис",
+        "НефтеМаш",
+        "РосТехИнжиниринг",
+        "СтройНефтеГаз",
+    ]
+    return templates.TemplateResponse(
+        "partners.html",
+        _template_context(request, partners=partners, active_page="partners"),
+    )

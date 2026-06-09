@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="admin-login-card">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <h1 class="h4 mb-4 text-center">Вход в админ-панель</h1>
+
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" action="/admin/login">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Логин</label>
+                    <input type="text" class="form-control" id="username" name="username" required autofocus>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Войти</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

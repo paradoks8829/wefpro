@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Обзор{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Обзор</h1>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <p class="text-muted mb-1">Всего новостей</p>
+                <h2 class="mb-0">{{ news_count }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <p class="text-muted mb-1">Опубликовано новостей</p>
+                <h2 class="mb-0">{{ published_news }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stat-card">
+            <div class="card-body">
+                <p class="text-muted mb-1">Товаров в каталоге</p>
+                <h2 class="mb-0">{{ products_count }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 d-flex gap-2">
+    <a href="/admin/news/new" class="btn btn-primary">Добавить новость</a>
+    <a href="/admin/products/new" class="btn btn-outline-primary">Добавить товар</a>
+</div>
+{% endblock %}

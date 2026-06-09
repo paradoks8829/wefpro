@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}О компании — {{ project_name }}{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">О компании</h1>
+
+<div class="row g-4">
+    <div class="col-lg-3">
+        <div class="list-group">
+            <a href="/about" class="list-group-item list-group-item-action active">О компании</a>
+            <a href="/partners" class="list-group-item list-group-item-action">Партнёры</a>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <p class="lead">
+            {{ project_name }} обеспечивает комплектацию предприятий различных отраслей промышленности
+            оборудованием и материалами, в том числе предприятий нефте- и газодобывающей отрасли.
+        </p>
+        <p>
+            Мы предлагаем к поставке продукцию, выпускаемую нашими заводами-партнёрами.
+            В каталоге — более 8000 наименований: кабельно-проводниковая и электротехническая
+            продукция, электрохимзащита и многое другое.
+        </p>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Качество</h5>
+                        <p class="mb-0">Все материалы и оборудование сертифицированы на территории РФ и соответствуют ГОСТ.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Надёжность</h5>
+                        <p class="mb-0">Приоритетность размещения заказов на заводах-партнёрах позволяет выполнять поставки в срок.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Эффективность</h5>
+                        <p class="mb-0">Широкий спектр продукции и техническая консультация для наших партнёров.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5>Оперативность</h5>
+                        <p class="mb-0">Собственный парк автотехники и логистическая служба для оптимизации сроков доставки.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
