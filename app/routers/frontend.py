@@ -1,8 +1,9 @@
-from fastapi import APIRouter, Depends, Request
+from fastapi import APIRouter, Depends, Query, Request
 from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app import models
 from app.config import get_settings
@@ -49,18 +50,46 @@ async def news_page(request: Request, db: AsyncSession = Depends(get_db)):
 
 
 @router.get("/catalog")
-async def catalog_page(request: Request, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(
-        select(models.Product)
-        .where(models.Product.is_published.is_(True))
-        .order_by(models.Product.category, models.Product.name)
+async def catalog_page(
+    request: Request,
+    category: str | None = Query(default=None),
+    db: AsyncSession = Depends(get_db),
+):
+    categories_result = await db.execute(
+        select(models.Category)
+        .where(models.Category.is_published.is_(True))
+        .order_by(models.Category.sort_order, models.Category.name)
     )
-    products = result.scalars().all()
-    categories = sorted({p.category for p in products if p.category})
+    categories = categories_result.scalars().all()
+
+    active_category = None
+    if category:
+        active_category = next((c for c in categories if c.slug == category), None)
+    if active_category is None and categories:
+        active_category = categories[0]
+
+    products: list[models.Product] = []
+    if active_category:
+        products_result = await db.execute(
+            select(models.Product)
+            .options(selectinload(models.Product.category))
+            .where(
+                models.Product.is_published.is_(True),
+                models.Product.category_id == active_category.id,
+            )
+            .order_by(models.Product.name)
+        )
+        products = list(products_result.scalars().all())
 
     return templates.TemplateResponse(
         "catalog.html",
-        _template_context(request, products=products, categories=categories, active_page="catalog"),
+        _template_context(
+            request,
+            products=products,
+            categories=categories,
+            active_category=active_category,
+            active_page="catalog",
+        ),
     )
 
 
@@ -86,15 +115,14 @@ async def about_page(request: Request):
 
 
 @router.get("/partners")
-async def partners_page(request: Request):
-    partners = [
-        "ТЕХНОПРОМ",
-        "ГазКомплект",
-        "ЭКЗ Сервис",
-        "НефтеМаш",
-        "РосТехИнжиниринг",
-        "СтройНефтеГаз",
-    ]
+async def partners_page(request: Request, db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.Partner)
+        .where(models.Partner.is_published.is_(True))
+        .order_by(models.Partner.sort_order, models.Partner.name)
+    )
+    partners = result.scalars().all()
+
     return templates.TemplateResponse(
         "partners.html",
         _template_context(request, partners=partners, active_page="partners"),

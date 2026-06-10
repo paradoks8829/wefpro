@@ -5,7 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app import models
 from app.database import get_db
 from app.dependencies import get_current_librarian
+from app.schemas.categories import CategoryCreate, CategoryRead, CategoryUpdate
 from app.schemas.news import NewsCreate, NewsRead, NewsUpdate
+from app.schemas.partners import PartnerCreate, PartnerRead, PartnerUpdate
 from app.schemas.products import ProductCreate, ProductRead, ProductUpdate
 
 router = APIRouter(
@@ -65,6 +67,60 @@ async def _get_news_or_404(db: AsyncSession, news_id: int) -> models.News:
     return news
 
 
+# --- Категории ---
+
+@router.get("/categories", response_model=list[CategoryRead])
+async def list_categories(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.Category).order_by(models.Category.sort_order, models.Category.name)
+    )
+    return result.scalars().all()
+
+
+@router.post("/categories", response_model=CategoryRead, status_code=status.HTTP_201_CREATED)
+async def create_category(data: CategoryCreate, db: AsyncSession = Depends(get_db)):
+    category = models.Category(**data.model_dump())
+    db.add(category)
+    await db.commit()
+    await db.refresh(category)
+    return category
+
+
+@router.get("/categories/{category_id}", response_model=CategoryRead)
+async def get_category(category_id: int, db: AsyncSession = Depends(get_db)):
+    category = await _get_category_or_404(db, category_id)
+    return category
+
+
+@router.patch("/categories/{category_id}", response_model=CategoryRead)
+async def update_category(
+    category_id: int,
+    data: CategoryUpdate,
+    db: AsyncSession = Depends(get_db),
+):
+    category = await _get_category_or_404(db, category_id)
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(category, field, value)
+    await db.commit()
+    await db.refresh(category)
+    return category
+
+
+@router.delete("/categories/{category_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_category(category_id: int, db: AsyncSession = Depends(get_db)):
+    category = await _get_category_or_404(db, category_id)
+    await db.delete(category)
+    await db.commit()
+
+
+async def _get_category_or_404(db: AsyncSession, category_id: int) -> models.Category:
+    result = await db.execute(select(models.Category).where(models.Category.id == category_id))
+    category = result.scalar_one_or_none()
+    if category is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Категория не найдена")
+    return category
+
+
 # --- Товары ---
 
 @router.get("/products", response_model=list[ProductRead])
@@ -117,3 +173,57 @@ async def _get_product_or_404(db: AsyncSession, product_id: int) -> models.Produ
     if product is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Товар не найден")
     return product
+
+
+# --- Партнёры ---
+
+@router.get("/partners", response_model=list[PartnerRead])
+async def list_partners(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        select(models.Partner).order_by(models.Partner.sort_order, models.Partner.name)
+    )
+    return result.scalars().all()
+
+
+@router.post("/partners", response_model=PartnerRead, status_code=status.HTTP_201_CREATED)
+async def create_partner(data: PartnerCreate, db: AsyncSession = Depends(get_db)):
+    partner = models.Partner(**data.model_dump())
+    db.add(partner)
+    await db.commit()
+    await db.refresh(partner)
+    return partner
+
+
+@router.get("/partners/{partner_id}", response_model=PartnerRead)
+async def get_partner(partner_id: int, db: AsyncSession = Depends(get_db)):
+    partner = await _get_partner_or_404(db, partner_id)
+    return partner
+
+
+@router.patch("/partners/{partner_id}", response_model=PartnerRead)
+async def update_partner(
+    partner_id: int,
+    data: PartnerUpdate,
+    db: AsyncSession = Depends(get_db),
+):
+    partner = await _get_partner_or_404(db, partner_id)
+    for field, value in data.model_dump(exclude_unset=True).items():
+        setattr(partner, field, value)
+    await db.commit()
+    await db.refresh(partner)
+    return partner
+
+
+@router.delete("/partners/{partner_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_partner(partner_id: int, db: AsyncSession = Depends(get_db)):
+    partner = await _get_partner_or_404(db, partner_id)
+    await db.delete(partner)
+    await db.commit()
+
+
+async def _get_partner_or_404(db: AsyncSession, partner_id: int) -> models.Partner:
+    result = await db.execute(select(models.Partner).where(models.Partner.id == partner_id))
+    partner = result.scalar_one_or_none()
+    if partner is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Партнёр не найден")
+    return partner

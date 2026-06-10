@@ -9,6 +9,22 @@ from app.database import get_db
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login", auto_error=False)
 
 ACCESS_TOKEN_COOKIE = "access_token"
+COOKIE_PATH = "/"
+
+
+def set_auth_cookie(response, token: str, max_age: int) -> None:
+    response.set_cookie(
+        key=ACCESS_TOKEN_COOKIE,
+        value=token,
+        max_age=max_age,
+        path=COOKIE_PATH,
+        httponly=True,
+        samesite="lax",
+    )
+
+
+def clear_auth_cookie(response) -> None:
+    response.delete_cookie(key=ACCESS_TOKEN_COOKIE, path=COOKIE_PATH)
 
 
 async def _get_librarian_by_token(token: str | None, db: AsyncSession) -> models.Librarian | None:

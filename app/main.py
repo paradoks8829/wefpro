@@ -30,7 +30,11 @@ app.include_router(admin_web.router)
 
 @app.exception_handler(WebAuthRedirect)
 async def web_auth_redirect_handler(request, exc: WebAuthRedirect):
-    return RedirectResponse(url=exc.url, status_code=303)
+    from app.dependencies import clear_auth_cookie
+
+    response = RedirectResponse(url=exc.url, status_code=303)
+    clear_auth_cookie(response)
+    return response
 
 
 @app.get("/health")

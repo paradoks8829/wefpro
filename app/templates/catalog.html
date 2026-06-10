@@ -3,56 +3,60 @@
 {% block title %}Каталог — {{ project_name }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Каталог продукции</h1>
+<h1 class="catalog-title">Каталог продукции</h1>
 
-<div class="row">
-    {% if categories %}
-        <div class="col-md-3 mb-4">
-            <div class="list-group">
-                <span class="list-group-item list-group-item-action active">Категории</span>
-                {% for category in categories %}
-                    <span class="list-group-item">{{ category }}</span>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="col-md-9">
-    {% else %}
-        <div class="col-12">
-    {% endif %}
+<div class="catalog-page-wrap">
+    <aside class="catalog-sidebar">
+        {% if categories %}
+            {% for cat in categories %}
+                <a href="/catalog?category={{ cat.slug }}"
+                   class="catalog-category {% if active_category and active_category.id == cat.id %}active{% endif %}">
+                    {{ cat.name }}
+                </a>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-info mb-0">Категории пока не добавлены.</div>
+        {% endif %}
+    </aside>
 
-    {% if products %}
-        <div class="row g-4">
-            {% for product in products %}
-                <div class="col-md-6">
-                    <div class="card h-100">
-                        {% if product.image_url %}
-                            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            {% if product.producer %}
-                                <p class="text-muted mb-1">Производитель: {{ product.producer }}</p>
+    <section class="catalog-content">
+        {% if active_category %}
+            <h2 class="catalog-category-title">{{ active_category.name }}</h2>
+        {% endif %}
+
+        {% if products %}
+            <div class="catalog-products-grid">
+                {% for product in products %}
+                    <article class="catalog-product-card">
+                        <div class="catalog-product-media">
+                            {% if product.image_url %}
+                                <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">
+                            {% else %}
+                                <div class="catalog-product-placeholder"></div>
                             {% endif %}
-                            {% if product.category %}
-                                <span class="badge bg-primary mb-2">{{ product.category }}</span>
+                        </div>
+                        <div class="catalog-product-body">
+                            <h3 class="catalog-product-name">{{ product.name }}</h3>
+                            {% if product.producer %}
+                                <p class="catalog-product-producer">{{ product.producer }}</p>
                             {% endif %}
                             {% if product.description %}
-                                <p class="card-text">{{ product.description }}</p>
+                                <p class="catalog-product-desc">{{ product.description }}</p>
                             {% endif %}
                             {% if product.pdf_url %}
-                                <a href="{{ product.pdf_url }}" class="btn btn-outline-primary btn-sm" target="_blank">
-                                    Скачать PDF
+                                <a href="{{ product.pdf_url }}" class="catalog-product-link" target="_blank" rel="noopener">
+                                    Посмотреть
                                 </a>
                             {% endif %}
                         </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="alert alert-info">Товары пока не добавлены.</div>
-    {% endif %}
-
-    </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% elif active_category %}
+            <div class="alert alert-info">В категории «{{ active_category.name }}» пока нет товаров.</div>
+        {% else %}
+            <div class="alert alert-info">Каталог пока пуст.</div>
+        {% endif %}
+    </section>
 </div>
 {% endblock %}

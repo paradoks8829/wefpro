@@ -1,4 +1,10 @@
 /* Общие стили для сайта */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     min-height: 100vh;
     display: flex;
@@ -24,4 +30,278 @@ footer {
 .feature-icon {
     font-size: 48px;
     margin-bottom: 15px;
+}
+
+/* Каталог */
+.catalog-title {
+    margin-bottom: 1.5rem;
+}
+
+.catalog-page-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+
+.catalog-page-wrap > .catalog-sidebar {
+    margin-right: 2rem;
+}
+
+.catalog-page-wrap > .catalog-content {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.catalog-sidebar {
+    width: 220px;
+    min-width: 220px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1rem;
+}
+
+.catalog-sidebar .catalog-category + .catalog-category {
+    margin-top: 0.75rem;
+}
+
+.catalog-category {
+    display: block;
+    padding: 0.9rem 1.1rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #eef5fa, #f9fcff);
+    color: #0f3b5f;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: center;
+    border: 1px solid rgba(15, 59, 95, 0.1);
+    box-shadow: 0 2px 6px rgba(15, 59, 95, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.catalog-category:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 59, 95, 0.12);
+    color: #1f7ac5;
+}
+
+.catalog-category.active {
+    background: linear-gradient(135deg, #0f3b5f, #1f7ac5);
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 14px rgba(31, 122, 197, 0.35);
+}
+
+.catalog-content {
+    min-width: 0;
+    width: 100%;
+}
+
+.catalog-category-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #5a6b7a;
+    margin-bottom: 1.25rem;
+}
+
+.catalog-products-grid {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-gap: 1.25rem;
+    gap: 1.25rem;
+}
+
+.catalog-product-card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid rgba(15, 59, 95, 0.08);
+    box-shadow: 0 4px 16px rgba(15, 59, 95, 0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.catalog-product-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(15, 59, 95, 0.14);
+}
+
+.catalog-product-media {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #f4f8fb, #eef5fa);
+    overflow: hidden;
+}
+
+.catalog-product-media img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    -o-object-fit: contain;
+    object-fit: contain;
+}
+
+.catalog-product-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    background: rgba(15, 59, 95, 0.08);
+}
+
+.catalog-product-body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0.9rem 1rem 1rem;
+}
+
+.catalog-product-body > * + * {
+    margin-top: 0.4rem;
+}
+
+.catalog-product-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #0f3b5f;
+    margin: 0;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.catalog-product-producer {
+    font-size: 0.8rem;
+    color: #6c7a89;
+    margin: 0;
+}
+
+.catalog-product-desc {
+    font-size: 0.82rem;
+    color: #4a5b6a;
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-height: 3.6em;
+}
+
+.catalog-product-link {
+    margin-top: auto;
+    padding-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1f7ac5;
+    text-decoration: none;
+}
+
+.catalog-product-link:hover {
+    color: #0f3b5f;
+    text-decoration: underline;
+}
+
+/* Адаптив: меньше 5 колонок на узких экранах */
+@media (max-width: 1400px) {
+    .catalog-products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1100px) {
+    .catalog-products-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .catalog-page-wrap {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .catalog-page-wrap > .catalog-sidebar {
+        margin-right: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .catalog-sidebar {
+        width: 100%;
+        min-width: 0;
+        position: static;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    .catalog-sidebar .catalog-category {
+        width: calc(50% - 0.375rem);
+        margin-top: 0;
+        margin-bottom: 0.75rem;
+    }
+
+    .catalog-sidebar .catalog-category:nth-child(odd) {
+        margin-right: 0.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .catalog-sidebar {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .catalog-sidebar .catalog-category {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+
+    .catalog-products-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -13,18 +13,38 @@
         </div>
     </div>
     <div class="col-lg-9">
-        <div class="row g-3">
-            {% for partner in partners %}
-                <div class="col-md-4">
-                    <div class="card text-center h-100">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <div class="bg-light rounded mb-3 py-4">🏢</div>
-                            <h6 class="mb-0">{{ partner }}</h6>
+        {% if partners %}
+            <div class="row g-3">
+                {% for partner in partners %}
+                    <div class="col-md-4">
+                        <div class="card text-center h-100">
+                            <div class="card-body d-flex flex-column justify-content-center">
+                                {% if partner.logo_url %}
+                                    <img src="{{ partner.logo_url }}" alt="{{ partner.name }}"
+                                         class="img-fluid mb-3" style="max-height: 80px; object-fit: contain;">
+                                {% else %}
+                                    <div class="bg-light rounded mb-3 py-4">🏢</div>
+                                {% endif %}
+                                {% if partner.website_url %}
+                                    <h6 class="mb-0">
+                                        <a href="{{ partner.website_url }}" target="_blank" rel="noopener">
+                                            {{ partner.name }}
+                                        </a>
+                                    </h6>
+                                {% else %}
+                                    <h6 class="mb-0">{{ partner.name }}</h6>
+                                {% endif %}
+                                {% if partner.description %}
+                                    <p class="text-muted small mt-2 mb-0">{{ partner.description }}</p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info mb-0">Партнёры пока не добавлены.</div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

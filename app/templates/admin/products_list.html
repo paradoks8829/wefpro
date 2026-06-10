@@ -25,7 +25,7 @@
                 {% for product in products %}
                 <tr>
                     <td>{{ product.name }}</td>
-                    <td>{{ product.category or '—' }}</td>
+                    <td>{{ product.category.name if product.category else '—' }}</td>
                     <td>{{ product.producer or '—' }}</td>
                     <td>
                         {% if product.is_published %}

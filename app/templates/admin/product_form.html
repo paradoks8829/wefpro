@@ -15,10 +15,17 @@
                            value="{{ product.name if product else '' }}">
                 </div>
                 <div class="col-md-4 mb-3">
-                    <label for="category" class="form-label">Категория</label>
-                    <input type="text" class="form-control" id="category" name="category" maxlength="100"
-                           value="{{ product.category if product and product.category else '' }}"
-                           placeholder="Mennekes, Кабели...">
+                    <label for="category_id" class="form-label">Категория</label>
+                    <select class="form-select" id="category_id" name="category_id" required>
+                        <option value="">— Выберите категорию —</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}"
+                                {% if product and product.category_id == cat.id %}selected
+                                {% elif not product and preset_category_id == cat.id %}selected{% endif %}>
+                                {{ cat.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
             <div class="mb-3">
