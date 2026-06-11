@@ -38,6 +38,7 @@
                         <a href="/admin/products/{{ product.id }}/edit" class="btn btn-sm btn-outline-primary">Изменить</a>
                         <form method="post" action="/admin/products/{{ product.id }}/delete" class="d-inline"
                               onsubmit="return confirm('Удалить товар?')">
+                            {% include "admin/_csrf.html" %}
                             <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
                         </form>
                     </td>

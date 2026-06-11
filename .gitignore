@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+pkfp.db
+.env
+
+uploads/images/*
+uploads/documents/*
+!uploads/.gitkeep
+!uploads/images/.gitkeep
+!uploads/documents/.gitkeep

@@ -7,7 +7,9 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="post" action="{% if category %}/admin/categories/{{ category.id }}/edit{% else %}/admin/categories/new{% endif %}">
+        <form method="post" data-prevent-double-submit
+              action="{% if category %}/admin/categories/{{ category.id }}/edit{% else %}/admin/categories/new{% endif %}">
+            {% include "admin/_form_security.html" %}
             <div class="row">
                 <div class="col-md-6 mb-3">
                     <label for="name" class="form-label">Название</label>

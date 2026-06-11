@@ -7,7 +7,9 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="post" action="{% if product %}/admin/products/{{ product.id }}/edit{% else %}/admin/products/new{% endif %}">
+        <form method="post" enctype="multipart/form-data" data-prevent-double-submit
+              action="{% if product %}/admin/products/{{ product.id }}/edit{% else %}/admin/products/new{% endif %}">
+            {% include "admin/_form_security.html" %}
             <div class="row">
                 <div class="col-md-8 mb-3">
                     <label for="name" class="form-label">Название</label>
@@ -37,20 +39,41 @@
                 <label for="description" class="form-label">Описание</label>
                 <textarea class="form-control" id="description" name="description" rows="4">{{ product.description if product and product.description else '' }}</textarea>
             </div>
+
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="image_url" class="form-label">URL изображения</label>
-                    <input type="url" class="form-control" id="image_url" name="image_url"
+                    <label for="image_file" class="form-label">Изображение товара</label>
+                    <input type="file" class="form-control" id="image_file" name="image_file"
+                           accept="image/jpeg,image/png,image/webp,image/gif">
+                    <div class="form-text">JPG, PNG, WEBP, GIF — до 20 МБ</div>
+                    {% if product and product.image_url %}
+                        <div class="mt-2">
+                            <img src="{{ product.image_url }}" alt="Текущее изображение"
+                                 class="img-thumbnail" style="max-height: 120px;">
+                            <div class="form-text">Текущий файл: {{ product.image_url }}</div>
+                        </div>
+                    {% endif %}
+                    <label for="image_url" class="form-label mt-2">или ссылка на изображение</label>
+                    <input type="text" class="form-control" id="image_url" name="image_url"
                            value="{{ product.image_url if product and product.image_url else '' }}"
-                           placeholder="https://...">
+                           placeholder="/uploads/images/... или https://...">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label for="pdf_url" class="form-label">URL PDF-каталога</label>
-                    <input type="url" class="form-control" id="pdf_url" name="pdf_url"
+                    <label for="pdf_file" class="form-label">PDF-каталог</label>
+                    <input type="file" class="form-control" id="pdf_file" name="pdf_file" accept="application/pdf,.pdf">
+                    <div class="form-text">Только PDF — до 20 МБ</div>
+                    {% if product and product.pdf_url %}
+                        <div class="form-text mt-2">
+                            Текущий файл: <a href="{{ product.pdf_url }}" target="_blank">{{ product.pdf_url }}</a>
+                        </div>
+                    {% endif %}
+                    <label for="pdf_url" class="form-label mt-2">или ссылка на PDF</label>
+                    <input type="text" class="form-control" id="pdf_url" name="pdf_url"
                            value="{{ product.pdf_url if product and product.pdf_url else '' }}"
-                           placeholder="/static/pdf/catalog/...">
+                           placeholder="/uploads/documents/...">
                 </div>
             </div>
+
             <div class="form-check mb-4">
                 <input class="form-check-input" type="checkbox" id="is_published" name="is_published" value="true"
                        {% if not product or product.is_published %}checked{% endif %}>

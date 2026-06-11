@@ -44,6 +44,7 @@
                         <a href="/admin/partners/{{ partner.id }}/edit" class="btn btn-sm btn-outline-primary">Изменить</a>
                         <form method="post" action="/admin/partners/{{ partner.id }}/delete" class="d-inline"
                               onsubmit="return confirm('Удалить партнёра?')">
+                            {% include "admin/_csrf.html" %}
                             <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
                         </form>
                     </td>

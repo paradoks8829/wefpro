@@ -1,0 +1,4 @@
+{% include "admin/_csrf.html" %}
+{% if form_nonce %}
+<input type="hidden" name="form_nonce" value="{{ form_nonce }}">
+{% endif %}

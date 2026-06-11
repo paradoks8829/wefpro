@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -6,6 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app import auth, models
 from app.database import get_db
 from app.dependencies import get_current_librarian
+from app.rate_limit import check_rate_limit
 from app.schemas.auth import LibrarianRead, Token
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -13,9 +14,11 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 @router.post("/login", response_model=Token)
 async def login(
+    request: Request,
     form_data: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db),
 ):
+    check_rate_limit(request, "api_login")
     result = await db.execute(
         select(models.Librarian).where(models.Librarian.username == form_data.username)
     )

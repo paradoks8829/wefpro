@@ -7,7 +7,9 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="post" action="{% if partner %}/admin/partners/{{ partner.id }}/edit{% else %}/admin/partners/new{% endif %}">
+        <form method="post" enctype="multipart/form-data" data-prevent-double-submit
+              action="{% if partner %}/admin/partners/{{ partner.id }}/edit{% else %}/admin/partners/new{% endif %}">
+            {% include "admin/_form_security.html" %}
             <div class="row">
                 <div class="col-md-8 mb-3">
                     <label for="name" class="form-label">Название</label>
@@ -22,10 +24,21 @@
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="logo_url" class="form-label">URL логотипа</label>
-                    <input type="url" class="form-control" id="logo_url" name="logo_url"
+                    <label for="logo_file" class="form-label">Логотип</label>
+                    <input type="file" class="form-control" id="logo_file" name="logo_file"
+                           accept="image/jpeg,image/png,image/webp,image/gif">
+                    <div class="form-text">JPG, PNG, WEBP, GIF — до 20 МБ</div>
+                    {% if partner and partner.logo_url %}
+                        <div class="mt-2">
+                            <img src="{{ partner.logo_url }}" alt="Текущий логотип"
+                                 class="img-thumbnail" style="max-height: 80px;">
+                            <div class="form-text">Текущий файл: {{ partner.logo_url }}</div>
+                        </div>
+                    {% endif %}
+                    <label for="logo_url" class="form-label mt-2">или ссылка на логотип</label>
+                    <input type="text" class="form-control" id="logo_url" name="logo_url"
                            value="{{ partner.logo_url if partner and partner.logo_url else '' }}"
-                           placeholder="https://... или /static/...">
+                           placeholder="/uploads/images/...">
                 </div>
                 <div class="col-md-6 mb-3">
                     <label for="website_url" class="form-label">Сайт партнёра</label>

@@ -7,7 +7,9 @@
 
 <div class="card shadow-sm">
     <div class="card-body">
-        <form method="post" action="{% if news_item %}/admin/news/{{ news_item.id }}/edit{% else %}/admin/news/new{% endif %}">
+        <form method="post" data-prevent-double-submit
+              action="{% if news_item %}/admin/news/{{ news_item.id }}/edit{% else %}/admin/news/new{% endif %}">
+            {% include "admin/_form_security.html" %}
             <div class="mb-3">
                 <label for="title" class="form-label">Заголовок</label>
                 <input type="text" class="form-control" id="title" name="title" required maxlength="200"

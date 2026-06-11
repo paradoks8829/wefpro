@@ -1,0 +1,47 @@
+
+
+services:
+  # 1. СЕРВИС БАЗЫ ДАННЫХ
+  db:
+    image: postgres:15-alpine  # Используем официальный образ PostgreSQL
+    container_name: wefpro_db
+    environment:
+      POSTGRES_USER: postgres      # Имя пользователя (совпадает с DATABASE_URL)
+      POSTGRES_PASSWORD: mysecretpassword  # Пароль (совпадает с DATABASE_URL)
+      POSTGRES_DB: pkfp        # Название базы данных (совпадает с DATABASE_URL)
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/  # Сохраняем данные БД на вашем ПК
+    ports:
+      - "5432:5432"                 # Пробрасываем порт, чтобы подключиться к БД извне (например, через DBeaver)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app-network
+
+  # 2. СЕРВИС ПРИЛОЖЕНИЯ (ВАШ FASTAPI)
+  app:
+    build: .                        # Собираем образ из Dockerfile в текущей папке
+    container_name: wefpro_app
+    ports:
+      - "8000:8000"                 # Делаем ваше приложение доступным на localhost:8000
+    environment:
+      - DATABASE_URL=postgresql://postgres:mysecretpassword@db:5432/pkfp
+      - UPLOAD_DIR=/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy  # Ждем, пока база данных будет полностью готова
+    volumes:
+      - ./app/static:/app/app/static
+      - ./uploads:/app/uploads
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres_data:   # Объявляем том для хранения данных PostgreSQL

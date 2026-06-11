@@ -16,6 +16,7 @@
                 {% if librarian %}
                     <span class="text-white-50 small">{{ librarian.username }}</span>
                     <form method="post" action="/admin/logout" class="mb-0">
+                        {% include "admin/_csrf.html" %}
                         <button type="submit" class="btn btn-outline-light btn-sm">Выйти</button>
                     </form>
                 {% endif %}
@@ -46,5 +47,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/admin.js?v=1"></script>
 </body>
 </html>

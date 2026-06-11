@@ -36,6 +36,7 @@
                         <a href="/admin/news/{{ item.id }}/edit" class="btn btn-sm btn-outline-primary">Изменить</a>
                         <form method="post" action="/admin/news/{{ item.id }}/delete" class="d-inline"
                               onsubmit="return confirm('Удалить новость?')">
+                            {% include "admin/_csrf.html" %}
                             <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
                         </form>
                     </td>
