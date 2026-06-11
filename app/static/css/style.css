@@ -1257,3 +1257,61 @@ main {
         font-size: 20px;
     }
 }
+
+.logo-image {
+    height: 60px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .logo-image {
+        height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-image {
+        height: 42px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-list {
+        position: fixed;
+        top: 100px;
+        left: -100%;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 40px 24px;
+        transition: 0.3s;
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        z-index: 999;
+    }
+
+    .nav-list.active {
+        left: 0;
+    }
+
+    .nav-list li {
+        width: auto;
+        margin: 8px 0;
+    }
+
+    .nav-list .nav-link {
+        display: inline-block;
+        text-align: right;
+        min-width: 140px;
+    }
+
+    .burger {
+        display: flex;
+    }
+}
