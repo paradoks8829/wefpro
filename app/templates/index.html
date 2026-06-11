@@ -3,59 +3,49 @@
 {% block title %}Главная — {{ project_name }}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-lg-8">
-        <h1 class="display-4 mb-4">Добро пожаловать на сайт {{ project_name }}</h1>
-        <p class="lead">
-            Мы — ведущий поставщик промышленного оборудования в России.
-            Наша компания работает на рынке более 20 лет.
-        </p>
-        <p>
-            На нашем сайте вы можете ознакомиться с каталогом продукции,
-            узнать последние новости компании, а также связаться с нами.
-        </p>
-        <a href="/catalog" class="btn btn-primary btn-lg">Перейти к каталогу</a>
-    </div>
-
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Последние новости</h5>
-            </div>
-            <div class="card-body">
-                {% if news %}
-                    {% for item in news %}
-                        <div class="news-card mb-3">
-                            <h6>{{ item.title }}</h6>
-                            <small class="text-muted">{{ item.created_at.strftime('%d.%m.%Y') }}</small>
-                            <p class="mt-2 mb-0">{{ item.content[:100] }}{% if item.content|length > 100 %}...{% endif %}</p>
-                            {% if not loop.last %}<hr>{% endif %}
-                        </div>
-                    {% endfor %}
-                    <a href="/news" class="btn btn-outline-primary btn-sm">Все новости</a>
-                {% else %}
-                    <p class="text-muted mb-0">Новостей пока нет.</p>
-                {% endif %}
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <h1 class="hero-title">Надежное оборудование для глобальных задач</h1>
+            <p class="hero-subtitle">
+                Добро пожаловать! ПРОМ ИНЖИНИРИНГ — ведущий поставщик промышленного оборудования в России.
+                Наша компания работает на рынке более 20 лет. Чтобы узнать о компании побольше, вы можете посетить 
+                разделы "О компании" и "Новости". О нашей продукции — в разделе "Каталог".
+            </p>
+            <div class="hero-buttons">
+                <a href="/catalog" class="btn btn-primary">Каталог</a>
+                <a href="/contacts" class="btn btn-outline">Связаться</a>
             </div>
         </div>
+        <div class="hero-right"></div>
+        <div class="vertical-divider"></div>
     </div>
-</div>
+</section>
 
-<div class="row mt-5 text-center">
-    <div class="col-md-4">
-        <div class="feature-icon fs-1">🏭</div>
-        <h4>Собственное производство</h4>
-        <p>Полный цикл производства на современных станках</p>
+<section class="news-block">
+    <div class="news-header">
+        <h2>Новости компании</h2>
+        <a href="/news" class="news-all-link">Все новости →</a>
     </div>
-    <div class="col-md-4">
-        <div class="feature-icon fs-1">📦</div>
-        <h4>Доставка по всей России</h4>
-        <p>Быстрая и надёжная доставка в любой регион</p>
+    <div class="news-grid">
+        {% if news %}
+            {% for item in news[:3] %}
+            <div class="news-card">
+                <div class="news-card-content">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.content[:80] }}{% if item.content|length > 80 %}...{% endif %}</p>
+                </div>
+                <div class="news-date">{{ item.created_at.strftime('%d.%m.%Y') }}</div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="news-card">
+                <div class="news-card-content">
+                    <h3>Новостей пока нет</h3>
+                    <p>Следите за обновлениями</p>
+                </div>
+            </div>
+        {% endif %}
     </div>
-    <div class="col-md-4">
-        <div class="feature-icon fs-1">🔧</div>
-        <h4>Гарантия качества</h4>
-        <p>Все товары сертифицированы и имеют гарантию</p>
-    </div>
-</div>
+</section>
 {% endblock %}

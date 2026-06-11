@@ -3,29 +3,32 @@
 {% block title %}Контакты — {{ project_name }}{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Контакты</h1>
-
-<div class="row g-4">
-    <div class="col-lg-5">
-        <div class="card bg-primary text-white">
-            <div class="card-body">
-                <h5 class="card-title">Свяжитесь с нами</h5>
-                <p class="mb-1"><strong>Адрес:</strong></p>
-                <p>614056, г. Пермь, ул. Соликамская, 273</p>
-                <p class="mb-1"><strong>Телефон:</strong></p>
-                <p class="mb-0">+7 (342) 263-17-60<br>+7 (342) 263-17-62</p>
-            </div>
+<main class="contacts-page">
+    <div class="contacts-container">
+        <div class="contacts-card">
+            <p class="contact-label">Наш адрес:</p>
+            <p>{{ address|default('614056, г. Пермь, ул. Соликамская, 273') }}</p>
+            
+            <p class="contact-label">Наш телефон:</p>
+            <p class="contact-phone">{{ phone|default('+7 (342) 263-17-60') }}</p>
+            <p class="contact-phone">{{ phone|default('+7 (342) 263-17-62') }}</p>
+            {% if phone2 %}
+                <p class="contact-phone" style="margin-top: -8px;">{{ phone2 }}</p>
+            {% endif %}
+            
+            <p class="contact-label">Email:</p>
+            <p class="contact-email">
+                <a href="mailto:{{ email|default('info@prom-engineering.ru') }}">{{ email|default('permindustriya@mail.ru') }}</a>
+            </p>
         </div>
-    </div>
-    <div class="col-lg-7">
-        <div class="ratio ratio-16x9">
-            <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=56.346188%2C58.069829&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzI0OTA4MBJC0KDQvtGB0YHQuNGPLCDQn9C10YDQvNGMLCDQodC-0LvQuNC60LDQvNGB0LrQsNGPINGD0LvQuNGG0LAsIDI3M9CQIgoNgGJhQhWBR2hC&z=16.9"
-                frameborder="0"
-                allowfullscreen="true"
+        <div class="contacts-map">
+            <iframe 
+                src="{{ map_url|default('https://yandex.ru/map-widget/v1/?ll=56.346188%2C58.069829&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NzI0OTA4MBJC0KDQvtGB0YHQuNGPLCDQn9C10YDQvNGMLCDQodC-0LvQuNC60LDQvNGB0LrQsNGPINGD0LvQuNGG0LAsIDI3M9CQIgoNgGJhQhWBR2hC&z=16.9') }}"
+                frameborder="0" 
+                allowfullscreen="true" 
                 style="border:0;">
             </iframe>
         </div>
     </div>
-</div>
+</main>
 {% endblock %}
