@@ -23,7 +23,7 @@ main {
     padding: 0 24px;
 }
 
-.gradient-card,
+/* ===== КАРТОЧКИ ===== */
 .news-card-large,
 .wide-card,
 .contacts-card {
@@ -32,7 +32,6 @@ main {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gradient-card:hover,
 .news-card-large:hover,
 .wide-card:hover,
 .contacts-card:hover {
@@ -40,28 +39,29 @@ main {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
 
-.light-card,
 .news-card,
-.feature-card,
-.partner-card,
-.partner-item {
+.partner-card-item {
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     border-radius: 28px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.light-card:hover,
 .news-card:hover,
-.feature-card:hover,
-.partner-card:hover,
-.partner-item:hover {
+.partner-card-item:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 40px rgba(15, 59, 95, 0.1);
 }
 
-.btn {
-    padding: 14px 40px;
+/* ===== КНОПКИ НА ГЛАВНОЙ ===== */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.btn-catalog, .btn-contact {
     border-radius: 60px;
+    padding: 14px 40px;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
@@ -73,52 +73,29 @@ main {
     font-family: 'Inter', sans-serif;
 }
 
-.btn-primary {
+.btn-catalog {
     background: #1E4A76;
     color: white;
     border: none;
-    box-shadow: 0 2px 8px rgba(30, 74, 118, 0.2);
 }
 
-.btn-primary:hover {
+.btn-catalog:hover {
     background: #0F3B5F;
-    color: white;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(30, 74, 118, 0.3);
 }
 
-.btn-outline {
+.btn-contact {
     background: white;
     border: 2px solid #1E4A76;
     color: #1E4A76;
 }
 
-.btn-outline:hover {
+.btn-contact:hover {
     background: #1E4A76;
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(30, 74, 118, 0.2);
-}
-
-.btn-primary:active,
-.btn-outline:active {
-    transform: translateY(0);
-}
-
-.date-badge,
-.news-date {
-    font-size: 14px;
-    font-weight: 500;
-    color: #1F7AC5;
-}
-
-.date-badge-white,
-.news-card-large .news-date {
-    background: rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
-    border-radius: 40px;
-    color: white;
-    white-space: nowrap;
 }
 
 /* ===== HEADER ===== */
@@ -142,25 +119,17 @@ main {
     width: 100%;
 }
 
-.logo {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
+.logo-image {
+    height: 100px;
+    width: auto;
+    display: block;
 }
 
-.logo-main {
-    font-size: 48px;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: #0F3B5F;
+@media (max-width: 768px) {
+    .logo-image { height: 60px; }
 }
-
-.logo-sub {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    color: #1F7AC5;
-    margin-top: -6px;
+@media (max-width: 480px) {
+    .logo-image { height: 50px; }
 }
 
 .main-nav {
@@ -187,8 +156,7 @@ main {
     transition: all 0.2s ease;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover, .nav-link.active {
     background: linear-gradient(135deg, #e0edf6, #f0f5fa);
     color: #0F3B5F;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -204,20 +172,15 @@ main {
     text-decoration: none;
     font-weight: 500;
     font-size: 18px;
-    cursor: pointer;
     transition: all 0.2s ease;
     text-align: left;
 }
 
-.nav-link-vertical:last-child {
-    margin-bottom: 0;
-}
-
+.nav-link-vertical:last-child { margin-bottom: 0; }
 .nav-link-vertical:hover {
     background: linear-gradient(135deg, #e0edf6, #f0f5fa);
     transform: translateX(4px);
 }
-
 .nav-link-vertical.active {
     background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
     color: white;
@@ -231,7 +194,6 @@ main {
     border: none;
     cursor: pointer;
 }
-
 .burger span {
     width: 26px;
     height: 2px;
@@ -247,21 +209,19 @@ main {
     color: #FFFFFF;
     margin-top: auto;
 }
-
 .footer-center p {
     font-size: 18px;
     letter-spacing: 0.3px;
     margin: 0;
 }
 
-/* ===== HERO ===== */
+/* ===== HERO (ГЛАВНАЯ) ===== */
 .hero {
     margin-top: 100px;
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     position: relative;
     padding: 60px 0;
 }
-
 .hero-inner {
     display: flex;
     position: relative;
@@ -269,36 +229,23 @@ main {
     margin: 0 auto;
     padding: 0 24px;
 }
-
 .hero-left {
     width: 50%;
     padding-right: 48px;
     color: #0f3b5f;
 }
-
 .hero-title {
     font-size: 36px;
     font-weight: 800;
     margin-bottom: 24px;
     line-height: 1.2;
 }
-
 .hero-subtitle {
     font-size: 16px;
     line-height: 1.5;
     margin-bottom: 40px;
 }
-
-.hero-buttons {
-    display: flex;
-    gap: 20px;
-}
-
-.hero-right {
-    width: 50%;
-    background: transparent;
-}
-
+.hero-right { width: 50%; background: transparent; }
 .vertical-divider {
     position: absolute;
     left: 50%;
@@ -309,12 +256,11 @@ main {
     transform: translateX(-50%);
 }
 
-/* ===== НОВОСТИ ===== */
+/* ===== НОВОСТИ (ГЛАВНАЯ) ===== */
 .news-block {
     padding: 60px 0;
     background: #fff;
 }
-
 .news-header {
     display: flex;
     justify-content: space-between;
@@ -323,25 +269,19 @@ main {
     margin: 0 auto 40px;
     padding: 0 24px;
 }
-
 .news-header h2 {
     font-size: 28px;
     font-weight: 700;
     color: #0F3B5F;
     margin: 0;
 }
-
 .news-all-link {
     color: #1F7AC5;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
 }
-
-.news-all-link:hover {
-    color: #0F3B5F;
-}
-
+.news-all-link:hover { color: #0F3B5F; }
 .news-grid {
     display: flex;
     gap: 30px;
@@ -349,7 +289,6 @@ main {
     margin: 0 auto;
     padding: 0 24px;
 }
-
 .news-card {
     flex: 1;
     padding: 28px 24px 20px;
@@ -357,24 +296,27 @@ main {
     flex-direction: column;
     justify-content: space-between;
 }
-
 .news-card-content h3 {
     font-size: 22px;
     margin-bottom: 12px;
     color: #0F3B5F;
 }
-
 .news-card-content p {
     color: #4a6a85;
     line-height: 1.5;
 }
+.news-date {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1F7AC5;
+}
 
+/* ===== СТРАНИЦА НОВОСТЕЙ ===== */
 .news-page {
     margin-top: 100px;
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     padding: 60px 0 80px;
 }
-
 .news-page-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -383,7 +325,6 @@ main {
     flex-direction: column;
     gap: 40px;
 }
-
 .news-card-large {
     padding: 36px 32px;
     display: flex;
@@ -391,24 +332,25 @@ main {
     flex-wrap: wrap;
     align-items: center;
 }
-
-.news-card-large .news-card-content {
-    max-width: 80%;
-}
-
+.news-card-large .news-card-content { max-width: 80%; }
 .news-card-large .news-card-content h3 {
     font-size: 24px;
     font-weight: 700;
     margin-bottom: 12px;
     color: #FFFFFF;
 }
-
 .news-card-large .news-card-content p {
     color: rgba(255, 255, 255, 0.85);
     line-height: 1.5;
     font-size: 16px;
 }
-
+.news-card-large .news-date {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 40px;
+    color: white;
+    white-space: nowrap;
+}
 .empty-news {
     background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
     border-radius: 32px;
@@ -417,18 +359,12 @@ main {
     color: white;
 }
 
-.empty-news p {
-    font-size: 18px;
-    margin: 0;
-}
-
 /* ===== КАТАЛОГ ===== */
 .catalog-page {
     margin-top: 100px;
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     padding: 48px 24px 80px;
 }
-
 .catalog-title {
     margin-top: 150px;
     margin-bottom: 2rem;
@@ -437,7 +373,6 @@ main {
     font-weight: 800;
     color: #0F3B5F;
 }
-
 .catalog-title::after {
     content: '';
     display: block;
@@ -447,14 +382,12 @@ main {
     margin: 16px auto 0;
     border-radius: 2px;
 }
-
 .catalog-page-wrap {
     display: flex;
     gap: 40px;
     max-width: 1280px;
     margin: 0 auto;
 }
-
 .catalog-sidebar {
     width: 280px;
     flex-shrink: 0;
@@ -464,7 +397,6 @@ main {
     top: 120px;
     height: fit-content;
 }
-
 .catalog-category {
     display: block;
     padding: 14px 18px;
@@ -479,29 +411,19 @@ main {
     text-align: center;
     border: 1px solid rgba(15, 59, 95, 0.1);
 }
-
-.catalog-category:last-child {
-    margin-bottom: 0;
-}
-
+.catalog-category:last-child { margin-bottom: 0; }
 .catalog-category:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(15, 59, 95, 0.12);
     color: #1F7AC5;
 }
-
 .catalog-category.active {
     background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
     color: white;
     border-color: transparent;
     box-shadow: 0 4px 14px rgba(31, 122, 197, 0.35);
 }
-
-.catalog-content {
-    flex: 1;
-    min-width: 0;
-}
-
+.catalog-content { flex: 1; min-width: 0; }
 .catalog-category-title {
     font-size: 24px;
     font-weight: 700;
@@ -510,13 +432,11 @@ main {
     padding-bottom: 12px;
     border-bottom: 2px solid rgba(15, 59, 95, 0.1);
 }
-
 .catalog-products-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
 }
-
 .catalog-product-card {
     display: flex;
     flex-direction: column;
@@ -527,12 +447,10 @@ main {
     overflow: hidden;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
 .catalog-product-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(15, 59, 95, 0.14);
 }
-
 .catalog-product-media {
     height: 160px;
     display: flex;
@@ -542,27 +460,18 @@ main {
     background: linear-gradient(135deg, #f4f8fb, #eef5fa);
     overflow: hidden;
 }
-
 .catalog-product-media img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
-
 .catalog-product-placeholder {
     width: 64px;
     height: 64px;
     border-radius: 12px;
     background: rgba(15, 59, 95, 0.08);
 }
-
-.catalog-product-body {
-    padding: 16px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
+.catalog-product-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 .catalog-product-name {
     font-size: 16px;
     font-weight: 700;
@@ -570,13 +479,11 @@ main {
     margin-bottom: 6px;
     line-height: 1.3;
 }
-
 .catalog-product-producer {
     font-size: 12px;
     color: #6c7a89;
     margin-bottom: 8px;
 }
-
 .catalog-product-desc {
     font-size: 13px;
     color: #4a5b6a;
@@ -588,7 +495,6 @@ main {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-
 .catalog-product-link {
     margin-top: auto;
     font-size: 14px;
@@ -599,24 +505,16 @@ main {
     align-items: center;
     gap: 6px;
 }
-
 .catalog-product-link:hover {
     color: #0F3B5F;
     text-decoration: underline;
 }
 
-/* Адаптив каталога */
 @media (max-width: 1200px) {
-    .catalog-products-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+    .catalog-products-grid { grid-template-columns: repeat(3, 1fr); }
 }
-
 @media (max-width: 900px) {
-    .catalog-page-wrap {
-        flex-direction: column;
-    }
-
+    .catalog-page-wrap { flex-direction: column; }
     .catalog-sidebar {
         width: 100%;
         position: static;
@@ -624,21 +522,11 @@ main {
         flex-wrap: wrap;
         gap: 10px;
     }
-
-    .catalog-category {
-        width: calc(50% - 5px);
-        margin-bottom: 0;
-    }
-
-    .catalog-products-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .catalog-category { width: calc(50% - 5px); margin-bottom: 0; }
+    .catalog-products-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 768px) {
-    .catalog-products-grid {
-        grid-template-columns: 1fr;
-    }
+    .catalog-products-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== КОНТАКТЫ ===== */
@@ -647,7 +535,6 @@ main {
     background: white;
     padding: 60px 0;
 }
-
 .contacts-container {
     max-width: 1280px;
     margin: 0 auto;
@@ -655,14 +542,12 @@ main {
     gap: 48px;
     padding: 0 24px;
 }
-
 .contacts-card {
     flex: 1;
     padding: 48px 40px;
     color: white;
     line-height: 1.6;
 }
-
 .contacts-card .contact-label {
     font-weight: 700;
     font-size: 20px;
@@ -670,31 +555,24 @@ main {
     margin-bottom: 8px;
     color: rgba(255, 255, 255, 0.9);
 }
-
-.contacts-card .contact-label:first-of-type {
-    margin-top: 0;
-}
-
+.contacts-card .contact-label:first-of-type { margin-top: 0; }
 .contacts-card p:not(.contact-label) {
     margin: 0;
     font-size: 18px;
     font-weight: 400;
     color: rgba(255, 255, 255, 0.85);
 }
-
 .contacts-card .contact-phone {
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 4px;
     color: white;
 }
-
 .contacts-card .contact-email a {
     color: white;
     text-decoration: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 .contacts-map {
     flex: 1.2;
     height: 450px;
@@ -703,74 +581,31 @@ main {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .contacts-map:hover {
     transform: translateY(-4px);
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
 }
+.contacts-map iframe { width: 100%; height: 100%; border: none; }
 
-.contacts-map iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* ===== СТРАНИЦА О КОМПАНИИ ===== */
+/* ===== О КОМПАНИИ ===== */
 .about-page {
     margin-top: 100px;
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     padding: 48px 0 80px;
 }
-
-.about-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
+.about-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 .about-top {
     display: flex;
     gap: 32px;
     max-width: 1280px;
     margin: 0 auto 32px;
 }
-
 .about-left-card {
     background: #EEEEEE;
     border-radius: 24px;
     padding: 20px;
     width: 250px;
 }
-
-.nav-link-vertical {
-    display: block;
-    padding: 12px 16px;
-    margin-bottom: 8px;
-    background: #FFFFFF;
-    border-radius: 12px;
-    color: #0F3B5F;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: left;
-}
-
-.nav-link-vertical:last-child {
-    margin-bottom: 0;
-}
-
-.nav-link-vertical:hover {
-    background: linear-gradient(135deg, #e0edf6, #f0f5fa);
-    transform: translateX(4px);
-}
-
-.nav-link-vertical.active {
-    background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
-    color: white;
-}
-
 .about-right-card {
     flex: 1;
     background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
@@ -782,13 +617,11 @@ main {
     text-align: right;
     align-content: center;
 }
-
 .about-description {
     max-width: 1280px;
     margin: 0 auto 48px;
     padding: 0 24px;
 }
-
 .about-description p {
     max-width: calc(100% - 250px - 32px);
     margin-left: auto;
@@ -796,7 +629,6 @@ main {
     line-height: 1.6;
     color: #0F3B5F;
 }
-
 .about-bottom-grid {
     max-width: 1280px;
     margin: 0 auto;
@@ -805,51 +637,36 @@ main {
     gap: 32px;
     padding: 0 24px;
 }
-
 .wide-card {
-    background: linear-gradient(135deg, #0F3B5F, #1F7AC5);
-    border-radius: 28px;
     padding: 36px 40px;
-    color: white;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
-.wide-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
-}
-
 .wide-card h3 {
     margin-bottom: 20px;
     font-size: 26px;
     font-weight: 700;
+    color: white;
 }
-
 .wide-card p {
     line-height: 1.6;
     font-size: 16px;
     margin: 0;
     text-align: justify;
+    color: rgba(255, 255, 255, 0.85);
 }
-
 .benefits-list {
     list-style: none;
     margin: 0;
     padding-left: 0;
 }
-
 .benefits-list li {
     margin-bottom: 20px;
     font-size: 16px;
     padding-left: 28px;
     position: relative;
     line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
 }
-
-.benefits-list li:last-child {
-    margin-bottom: 0;
-}
-
+.benefits-list li:last-child { margin-bottom: 0; }
 .benefits-list li::before {
     content: "•";
     color: #ffffff;
@@ -859,25 +676,15 @@ main {
     left: 0;
     top: 0;
 }
+.benefits-list li strong { color: #ffffff; font-weight: 700; }
 
-.benefits-list li strong {
-    color: #ffffff;
-    font-weight: 700;
-}
-
-/* ===== СТРАНИЦА ПАРТНЁРОВ ===== */
+/* ===== ПАРТНЁРЫ ===== */
 .partners-page {
     margin-top: 100px;
     background: linear-gradient(135deg, #EEF5FA, #F9FCFF);
     padding: 48px 0 80px;
 }
-
-.partners-container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 0 24px;
-}
-
+.partners-container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
 .partners-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -886,35 +693,27 @@ main {
     margin: 0 auto;
     padding: 0 24px;
 }
-
-/* Карточка партнёра */
 .partner-card-item {
     background: white;
-    border-radius: 24px;
     padding: 32px 24px;
     text-align: center;
-    transition: all 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
 .partner-card-item:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 30px rgba(15, 59, 95, 0.12);
 }
-
 .partner-logo-wrapper {
     width: 100px;
     height: 100px;
     margin: 0 auto 20px;
 }
-
 .partner-logo-img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     border-radius: 50%;
 }
-
 .partner-logo-placeholder {
     width: 100%;
     height: 100%;
@@ -926,21 +725,18 @@ main {
     font-size: 48px;
     color: #1F7AC5;
 }
-
 .partner-name {
     font-size: 18px;
     font-weight: 700;
     color: #0F3B5F;
     margin-bottom: 12px;
 }
-
 .partner-description {
     font-size: 14px;
     color: #6c8eaa;
     line-height: 1.5;
     margin-bottom: 16px;
 }
-
 .partner-link {
     display: inline-flex;
     align-items: center;
@@ -951,12 +747,10 @@ main {
     text-decoration: none;
     transition: all 0.2s ease;
 }
-
 .partner-link:hover {
     color: #0F3B5F;
     gap: 12px;
 }
-
 .empty-partners {
     text-align: center;
     padding: 60px;
@@ -965,7 +759,6 @@ main {
     max-width: 1280px;
     margin: 0 auto;
 }
-
 .empty-partners p {
     font-size: 18px;
     color: #6c8eaa;
@@ -973,314 +766,6 @@ main {
 }
 
 /* ===== АДАПТИВ ===== */
-@media (max-width: 768px) {
-    .about-top {
-        flex-direction: column;
-        gap: 20px;
-        padding: 0 16px;
-    }
-
-    .about-left-card {
-        width: 100%;
-    }
-
-    .about-right-card {
-        font-size: 28px;
-        padding: 20px 28px;
-        text-align: left;
-    }
-
-    .about-description p {
-        max-width: 100%;
-        margin-left: 0;
-        padding: 0 16px;
-    }
-
-    .wide-card {
-        padding: 24px 20px;
-    }
-
-    .wide-card h3 {
-        font-size: 22px;
-    }
-
-    .partners-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        padding: 0 16px;
-    }
-
-    .partner-card-item {
-        padding: 24px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .about-right-card {
-        font-size: 22px;
-        padding: 16px 20px;
-    }
-
-    .wide-card {
-        padding: 20px 16px;
-    }
-
-    .wide-card h3 {
-        font-size: 20px;
-    }
-
-    .partners-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ===== АНИМАЦИИ ===== */
-.tab-content {
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ===== АДАПТИВ ===== */
-@media (max-width: 1024px) {
-    .partner-card {
-        min-width: calc(50% - 16px);
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-list {
-        position: fixed;
-        top: 100px;
-        left: -100%;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 0;
-        transition: 0.3s;
-        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-        z-index: 999;
-    }
-
-    .nav-list.active {
-        left: 0;
-    }
-
-    .burger {
-        display: flex;
-    }
-
-    .container {
-        padding: 0 16px;
-    }
-
-    .hero {
-        padding: 40px 0;
-    }
-
-    .hero-inner {
-        flex-direction: column;
-        padding: 0 16px;
-    }
-
-    .hero-left,
-    .hero-right {
-        width: 100%;
-        padding-right: 0;
-    }
-
-    .vertical-divider {
-        display: none;
-    }
-
-    .hero-title {
-        font-size: 28px;
-    }
-
-    .features-grid,
-    .news-grid {
-        flex-direction: column;
-    }
-
-    .news-header {
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-
-    .news-header h2 {
-        font-size: 24px;
-    }
-
-    .news-card-large {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        padding: 24px 20px;
-    }
-
-    .news-card-large .news-card-content {
-        max-width: 100%;
-    }
-
-    .news-card-large .news-card-content h3 {
-        font-size: 20px;
-    }
-
-    .news-date {
-        align-self: flex-end;
-    }
-
-    .contacts-container {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .contacts-card {
-        padding: 32px 28px;
-    }
-
-    .contacts-map {
-        height: 350px;
-    }
-
-    .about-top {
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .about-left-card {
-        width: 100%;
-    }
-
-    .about-right-card {
-        font-size: 28px;
-        padding: 20px 28px;
-        text-align: left;
-    }
-
-    .about-description p {
-        max-width: 100%;
-        margin-left: 0;
-    }
-
-    .wide-card {
-        padding: 24px 20px;
-    }
-
-    .wide-card h3 {
-        font-size: 22px;
-    }
-
-    .partners-grid {
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 16px;
-    }
-
-    .partner-card {
-        min-width: 100%;
-    }
-
-    .carousel-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 24px;
-    }
-
-    .prev {
-        left: -10px;
-    }
-
-    .next {
-        right: -10px;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-buttons {
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .btn {
-        text-align: center;
-    }
-
-    .hero-title {
-        font-size: 24px;
-    }
-
-    .contacts-card {
-        padding: 24px 20px;
-    }
-
-    .contacts-map {
-        height: 280px;
-    }
-
-    .about-right-card {
-        font-size: 22px;
-        padding: 16px 20px;
-    }
-
-    .wide-card {
-        padding: 20px 16px;
-    }
-
-    .wide-card h3 {
-        font-size: 20px;
-    }
-
-    .partners-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .carousel-btn {
-        display: none;
-    }
-
-    .catalog-title {
-        font-size: 28px;
-    }
-
-    .catalog-category-title {
-        font-size: 20px;
-    }
-}
-
-.logo-image {
-    height: 60px;
-    width: auto;
-    display: block;
-    transition: transform 0.2s ease;
-}
-
-.logo-image:hover {
-    transform: scale(1.02);
-}
-
-@media (max-width: 768px) {
-    .logo-image {
-        height: 48px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-image {
-        height: 42px;
-    }
-}
-
 @media (max-width: 768px) {
     .nav-list {
         position: fixed;
@@ -1295,23 +780,54 @@ main {
         box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
         z-index: 999;
     }
-
-    .nav-list.active {
-        left: 0;
-    }
-
-    .nav-list li {
-        width: auto;
-        margin: 8px 0;
-    }
-
+    .nav-list.active { left: 0; }
+    .nav-list li { width: auto; margin: 8px 0; }
     .nav-list .nav-link {
         display: inline-block;
         text-align: right;
         min-width: 140px;
     }
+    .burger { display: flex; }
 
-    .burger {
-        display: flex;
-    }
+    .container { padding: 0 16px; }
+    .hero { padding: 40px 0; }
+    .hero-inner { flex-direction: column; padding: 0 16px; }
+    .hero-left, .hero-right { width: 100%; padding-right: 0; }
+    .vertical-divider { display: none; }
+    .hero-title { font-size: 28px; }
+
+    .news-grid { flex-direction: column; }
+    .news-header { flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .news-header h2 { font-size: 24px; }
+    .news-card-large { flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 20px; }
+    .news-card-large .news-card-content { max-width: 100%; }
+    .news-card-large .news-card-content h3 { font-size: 20px; }
+    .news-date { align-self: flex-end; }
+
+    .contacts-container { flex-direction: column; gap: 32px; }
+    .contacts-card { padding: 32px 28px; }
+    .contacts-map { height: 350px; }
+
+    .about-top { flex-direction: column; gap: 20px; padding: 0 16px; }
+    .about-left-card { width: 100%; }
+    .about-right-card { font-size: 28px; padding: 20px 28px; text-align: left; }
+    .about-description p { max-width: 100%; margin-left: 0; padding: 0 16px; }
+
+    .wide-card { padding: 24px 20px; }
+    .wide-card h3 { font-size: 22px; }
+
+    .partners-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 0 16px; }
+    .partner-card-item { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+    .hero-buttons { flex-direction: column; gap: 12px; }
+    .hero-title { font-size: 24px; }
+    .contacts-card { padding: 24px 20px; }
+    .contacts-map { height: 280px; }
+    .about-right-card { font-size: 22px; padding: 16px 20px; }
+    .wide-card { padding: 20px 16px; }
+    .wide-card h3 { font-size: 20px; }
+    .partners-grid { grid-template-columns: 1fr; }
+    .catalog-title { font-size: 28px; }
+    .catalog-category-title { font-size: 20px; }
 }
