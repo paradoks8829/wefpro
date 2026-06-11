@@ -4,133 +4,43 @@
 
 {% block content %}
 <main class="partners-page">
-    <!-- Верхняя секция с навигацией -->
-    <div class="about-top">
-        <div class="about-left-card">
-            <a href="/about" class="nav-link-vertical">О компании</a>
-            <a href="/partners" class="nav-link-vertical active">Партнёры</a>
+    <div class="partners-container">
+        <div class="about-top">
+            <div class="about-left-card">
+                <a href="/about" class="nav-link-vertical">О компании</a>
+                <a href="/partners" class="nav-link-vertical active">Партнёры</a>
+            </div>
+            <div class="about-right-card">Наши партнёры</div>
         </div>
-        <div class="about-right-card">Наши партнёры</div>
-    </div>
 
-    <!-- Карусель партнёров -->
-    {% if partners and partners|length > 0 %}
-    <div class="carousel-container">
-        <div class="carousel-track" id="carouselTrack">
-            {% for partner in partners %}
-            <div class="partner-card">
-                <div class="partner-logo">
-                    {% if partner.logo_url %}
-                        <img src="{{ partner.logo_url }}" alt="{{ partner.name }}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-                    {% else %}
-                        🏢
+        {% if partners and partners|length > 0 %}
+            <div class="partners-grid">
+                {% for partner in partners %}
+                <div class="partner-card-item">
+                    <div class="partner-logo-wrapper">
+                        {% if partner.logo_url %}
+                            <img src="{{ partner.logo_url }}" alt="{{ partner.name }}" class="partner-logo-img">
+                        {% else %}
+                            <div class="partner-logo-placeholder">🏢</div>
+                        {% endif %}
+                    </div>
+                    <h3 class="partner-name">{{ partner.name }}</h3>
+                    {% if partner.description %}
+                        <p class="partner-description">{{ partner.description }}</p>
+                    {% endif %}
+                    {% if partner.website_url %}
+                        <a href="{{ partner.website_url }}" class="partner-link" target="_blank" rel="noopener">
+                            Перейти на сайт →
+                        </a>
                     {% endif %}
                 </div>
-                {% if partner.website_url %}
-                    <p><a href="{{ partner.website_url }}" target="_blank" rel="noopener" style="color: #0F3B5F; text-decoration: none;">{{ partner.name }}</a></p>
-                {% else %}
-                    <p>{{ partner.name }}</p>
-                {% endif %}
-                {% if partner.description %}
-                    <div class="partner-description">{{ partner.description }}</div>
-                {% endif %}
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
-        <button class="carousel-btn next" id="nextBtn">&#10095;</button>
-        <div class="carousel-dots" id="carouselDots"></div>
+        {% else %}
+            <div class="empty-partners">
+                <p>Партнёры пока не добавлены.</p>
+            </div>
+        {% endif %}
     </div>
-    {% else %}
-    <div class="empty-partners">
-        <p>Партнёры пока не добавлены.</p>
-    </div>
-    {% endif %}
 </main>
-
-<script>
-    // Карусель
-    const track = document.getElementById('carouselTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const dotsContainer = document.getElementById('carouselDots');
-    
-    if (track && prevBtn && nextBtn) {
-        let cards = document.querySelectorAll('.partner-card');
-        let currentIndex = 0;
-        let cardsPerView = 1;
-        
-        function updateCardsPerView() {
-            if (window.innerWidth >= 1024) {
-                cardsPerView = 3;
-            } else if (window.innerWidth >= 768) {
-                cardsPerView = 2;
-            } else {
-                cardsPerView = 1;
-            }
-        }
-        
-        function updateCarousel() {
-            updateCardsPerView();
-            const cardWidth = cards[0]?.offsetWidth || 0;
-            const gap = 32;
-            const slideWidth = cardWidth + gap;
-            const newPosition = -currentIndex * slideWidth;
-            track.style.transform = `translateX(${newPosition}px)`;
-            updateDots();
-        }
-        
-        function updateDots() {
-            if (!dotsContainer) return;
-            const totalDots = Math.ceil(cards.length / cardsPerView);
-            dotsContainer.innerHTML = '';
-            for (let i = 0; i < totalDots; i++) {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                if (i === Math.floor(currentIndex / cardsPerView)) {
-                    dot.classList.add('active');
-                }
-                dot.addEventListener('click', () => {
-                    currentIndex = i * cardsPerView;
-                    if (currentIndex > cards.length - cardsPerView) {
-                        currentIndex = Math.max(0, cards.length - cardsPerView);
-                    }
-                    updateCarousel();
-                });
-                dotsContainer.appendChild(dot);
-            }
-        }
-        
-        function nextSlide() {
-            const maxIndex = Math.max(0, cards.length - cardsPerView);
-            if (currentIndex + cardsPerView < cards.length) {
-                currentIndex += cardsPerView;
-            } else {
-                currentIndex = 0;
-            }
-            updateCarousel();
-        }
-        
-        function prevSlide() {
-            if (currentIndex - cardsPerView >= 0) {
-                currentIndex -= cardsPerView;
-            } else {
-                const maxIndex = Math.max(0, cards.length - cardsPerView);
-                currentIndex = maxIndex;
-            }
-            updateCarousel();
-        }
-        
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-        window.addEventListener('resize', () => {
-            updateCardsPerView();
-            currentIndex = 0;
-            updateCarousel();
-        });
-        
-        updateCardsPerView();
-        updateCarousel();
-    }
-</script>
 {% endblock %}
